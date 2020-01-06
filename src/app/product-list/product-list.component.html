@@ -1,0 +1,29 @@
+<h2>Products - {{ date | date:"shortDate" }}</h2>
+
+<app-product-search
+  (searchNotifier)="onSearch($event)"></app-product-search>
+
+<div *ngFor="let product of products">
+  <div *ngIf="product.name | searchPipe:this.filter">
+    <h2 [title]="product.name + ' details'">{{product.name}} - ${{product.price}}</h2>
+    <p *ngIf="product.description">
+      {{product.description}}
+    </p>
+    <button (click)="share()">Share</button>
+
+    <app-product-alerts
+      [product]="product"
+      (notify)="onNotify()"
+    ></app-product-alerts>
+
+    <app-buy-button
+      [product]="product"
+      (buyNotifier)="onBuy($event)"></app-buy-button>
+  </div>
+</div>
+
+<!-- 
+Copyright Google LLC. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->
